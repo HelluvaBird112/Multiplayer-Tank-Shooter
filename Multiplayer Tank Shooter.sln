@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Multiplayer Tank Shooter", "Multiplayer Tank Shooter\Multiplayer Tank Shooter.vcxproj", "{16F60F45-7F28-46D4-94C3-783B0668E481}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16F60F45-7F28-46D4-94C3-783B0668E481}.Debug|x64.ActiveCfg = Debug|x64
+		{16F60F45-7F28-46D4-94C3-783B0668E481}.Debug|x64.Build.0 = Debug|x64
+		{16F60F45-7F28-46D4-94C3-783B0668E481}.Debug|x86.ActiveCfg = Debug|Win32
+		{16F60F45-7F28-46D4-94C3-783B0668E481}.Debug|x86.Build.0 = Debug|Win32
+		{16F60F45-7F28-46D4-94C3-783B0668E481}.Release|x64.ActiveCfg = Release|x64
+		{16F60F45-7F28-46D4-94C3-783B0668E481}.Release|x64.Build.0 = Release|x64
+		{16F60F45-7F28-46D4-94C3-783B0668E481}.Release|x86.ActiveCfg = Release|Win32
+		{16F60F45-7F28-46D4-94C3-783B0668E481}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F57A8F0F-84C7-404F-9D75-2FD79D60D033}
+	EndGlobalSection
+EndGlobal
