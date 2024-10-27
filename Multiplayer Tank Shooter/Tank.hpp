@@ -2,10 +2,15 @@
 
 #include "Bullet.hpp"
 #include "Enum.hpp"
-
+#include "DataSchema.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+struct Position
+{
+    int32_t x;
+    int32_t y;
+};
 
 class Tank {
 public:
@@ -20,5 +25,6 @@ private:
     sf::Texture texture;
     float speed;
     std::vector<Bullet> bullets;
+    PLayer m_player;
 };
 

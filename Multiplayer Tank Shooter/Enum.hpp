@@ -1,6 +1,7 @@
 #pragma once
 
-enum Direction : char {
+enum Direction : char 
+{
     NORTH,
     NORTHEAST,
     EAST,
@@ -10,3 +11,11 @@ enum Direction : char {
     WEST,
     NORTHWEST
 };
+
+enum InputType : char
+{
+    CONNECT,
+    JOIN,
+    MOVE,
+};
+

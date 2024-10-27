@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Enum.hpp"
 
 #include <SFML/Network.hpp>
 
@@ -10,10 +11,10 @@ public:
 private:
     void connectToServer();
     void connectToServer(const std::string& address, int port);
-    void sendInput();
+    void sendInput(InputType type);
     void receiveUpdates();
-    sf::UdpSocket socket;
-    sf::IpAddress serverAddress{"127.0.0.1"};
-    int32_t m_port{ 54000 };
+    sf::UdpSocket m_socket;
+    sf::IpAddress m_serverAddress{"127.0.0.1"};
+    unsigned short m_port{ 54000 };
 };
 

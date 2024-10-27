@@ -4,3 +4,12 @@ GamePanel::GamePanel(std::shared_ptr<AudioManager> audioManager, std::shared_ptr
 {
 
 }
+
+GamePanel::~GamePanel()
+{
+}
+
+bool GamePanel::run()
+{
+	return false;
+}
