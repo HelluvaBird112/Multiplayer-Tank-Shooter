@@ -144,16 +144,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="GamePanel.cpp" />
     <ClCompile Include="GamePanel.hpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="NetworkManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.hpp" />
     <ClInclude Include="AssetManager.hpp" />
     <ClInclude Include="AudioManager.hpp" />
+    <ClInclude Include="Bullet.hpp" />
+    <ClInclude Include="Enum.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="NetworkManager.hpp" />
+    <ClInclude Include="Tank.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

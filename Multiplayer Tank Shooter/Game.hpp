@@ -11,6 +11,7 @@ public:
 	~Game();
 	bool run();
 private:
+	bool m_isPlaying{ false };
 	tgui::Gui m_gui{};
 	sf::Sound m_sound{};
 	tgui::Picture::Ptr m_bg{nullptr};

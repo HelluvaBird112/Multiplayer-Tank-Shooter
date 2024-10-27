@@ -36,8 +36,10 @@ Game::Game()
         std::string username = m_editBox->getText().toStdString();
         if (!username.empty()) {
             std::cout << "Username: " << username << std::endl;
-            // Thêm hành động để tham gia game với username...
-            // m_networkManager->joinGame(username);
+            if (!m_isPlaying)
+            {
+
+            }
             // m_audioManager->playSound("button_click");
         }
         else {
@@ -45,7 +47,6 @@ Game::Game()
         }
         });
 
-    // Thêm các phần tử GUI vào m_gui
     m_gui.add(m_editBox);
     m_gui.add(m_joinGameBtn);
 

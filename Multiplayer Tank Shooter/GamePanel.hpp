@@ -4,6 +4,7 @@
 #include "AssetManager.hpp"
 
 #include <SFML/Graphics.hpp>
+#include "Tank.hpp"
 
 class GamePanel
 {
@@ -16,4 +17,5 @@ private:
 	std::shared_ptr<AudioManager> m_audioManager{ nullptr };
 	std::shared_ptr<NetworkManager> m_networkManager{ nullptr };
 	std::shared_ptr<AssetManager> m_assetManager{ nullptr };
+	std::vector<Tank> m_tanks;
 };
