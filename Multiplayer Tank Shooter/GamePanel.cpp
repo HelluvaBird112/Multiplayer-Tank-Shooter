@@ -11,5 +11,5 @@ GamePanel::~GamePanel()
 
 bool GamePanel::run()
 {
-	return false;
+	auto a = m_networkManager->sendRequest<bool, std::tuple<int64_t, std::vector<Player>>>(PLAYER_JOIN, std::nullopt);
 }

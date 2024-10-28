@@ -18,4 +18,5 @@ private:
 	std::shared_ptr<NetworkManager> m_networkManager{ nullptr };
 	std::shared_ptr<AssetManager> m_assetManager{ nullptr };
 	std::vector<Tank> m_tanks;
+	std::uint64_t m_playerId;
 };

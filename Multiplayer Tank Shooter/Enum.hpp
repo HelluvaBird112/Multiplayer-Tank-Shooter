@@ -12,10 +12,12 @@ enum Direction : char
     NORTHWEST
 };
 
-enum InputType : char
+enum RequestType : char
 {
     CONNECT,
-    JOIN,
-    MOVE,
+    PLAYER_JOIN,
+    PLAYER_LEFT,
+    PLAYER_MOVE,
+    PLAYER_ATTACK,
+    PLAYER_COUNT
 };
-
