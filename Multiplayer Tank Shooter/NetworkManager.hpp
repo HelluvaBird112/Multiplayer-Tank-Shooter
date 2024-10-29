@@ -16,11 +16,11 @@ public:
     void receiveUpdates();
 private:
     
-    std::tuple<int64_t, std::vector<Player>> playerJoinHandle();
+    std::pair<size_t, std::vector<Player>> playerJoinHandle();
     bool sendRequestToServer(RequestType requestType);
     size_t receivePlayerCount();
     std::vector<Player> receivePlayers(size_t playerNum);
-    sf::UdpSocket m_socket;
+    sf::UdpSocket m_socket{};
     sf::IpAddress m_serverAddress{"127.0.0.1"};
     unsigned short m_port{ 54000 };
 };

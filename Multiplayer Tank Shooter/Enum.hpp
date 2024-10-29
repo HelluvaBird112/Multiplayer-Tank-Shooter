@@ -21,3 +21,6 @@ enum RequestType : char
     PLAYER_ATTACK,
     PLAYER_COUNT
 };
+
+enum ResponseType : char
+{};

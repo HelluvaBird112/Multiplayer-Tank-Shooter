@@ -3,7 +3,7 @@
 
 NetworkManager::NetworkManager()
 {
-    connectToServer();
+    //connectToServer();
 }
 
 NetworkManager::~NetworkManager() {}
@@ -25,7 +25,7 @@ void NetworkManager::receiveUpdates()
 {
 }
 
-std::tuple<int64_t, std::vector<Player>> NetworkManager::playerJoinHandle()
+std::pair<size_t, std::vector<Player>> NetworkManager::playerJoinHandle()
 {
     if (!NetworkManager::sendRequestToServer(PLAYER_JOIN))
     {
@@ -39,12 +39,14 @@ std::tuple<int64_t, std::vector<Player>> NetworkManager::playerJoinHandle()
     }
 
     auto players = receivePlayers(playerNum);
-    return std::make_tuple(playerNum, players);
+    return std::make_pair(playerNum, players);
 }
 
 bool NetworkManager::sendRequestToServer(RequestType requestType)
 {
-    if (m_socket.send(reinterpret_cast<char*>(&requestType), sizeof(requestType), m_serverAddress, m_port) != sf::Socket::Done) {
+    std::cout << m_serverAddress << " " << m_port << "\n";
+    if (m_socket.send(reinterpret_cast<char*>(&requestType), sizeof(requestType), m_serverAddress, m_port) != sf::Socket::Done) 
+    {
         std::cerr << "Failed to send request" << std::endl;
         return false;
     }
@@ -53,32 +55,36 @@ bool NetworkManager::sendRequestToServer(RequestType requestType)
 
 size_t NetworkManager::receivePlayerCount()
 {
-    size_t playerNum{};
-    auto numPlayerPacket = std::make_unique<char[]>(sizeof(playerNum));
+    size_t playerNum{0};
+    std::vector<char> numPlayerPacket(sizeof(playerNum) + 1);
     std::size_t receivedBytes{};
 
-    if (m_socket.receive(numPlayerPacket.get(), sizeof(playerNum), receivedBytes, m_serverAddress, m_port) != sf::Socket::Done)
+    if (m_socket.receive(numPlayerPacket.data(), sizeof(playerNum) + 1, receivedBytes, m_serverAddress, m_port) != sf::Socket::Done)
     {
         std::cerr << "Can't receive number of players !!\n";
         return 0;
     }
-
-    memcpy(&playerNum, numPlayerPacket.get(), sizeof(playerNum));
+    std::cout << "Receive bytes: " << receivedBytes << " Need bytes: " << sizeof(playerNum) + 1 << "\n";
+    for (size_t i = 0; i < receivedBytes; ++i) {
+        std::cout << "Byte " << i << ": " << static_cast<int>(numPlayerPacket[i]) << "\n";
+    }
+    memcpy(&playerNum, numPlayerPacket.data() + 1, sizeof(playerNum));
+    std::cout << "playerNum : " << playerNum << "\n";
     return playerNum;
 }
 
 std::vector<Player> NetworkManager::receivePlayers(size_t playerNum)
 {
     auto playerContainer = std::vector<Player>(playerNum);
-    auto playerContainerPacket = std::make_unique<char[]>(playerNum * sizeof(Player));
+    std::vector<char>playerContainerPacket(playerNum * sizeof(Player));
     std::size_t receivedBytes{};
 
-    if (m_socket.receive(playerContainerPacket.get(), playerNum * sizeof(Player), receivedBytes, m_serverAddress, m_port) != sf::Socket::Done)
+    if (m_socket.receive(playerContainerPacket.data(), playerNum * sizeof(Player), receivedBytes, m_serverAddress, m_port) != sf::Socket::Done)
     {
         std::cerr << "Can't receive player data !!\n";
         return {};
     }
 
-    memcpy(playerContainer.data(), playerContainerPacket.get(), playerNum * sizeof(Player));
+    memcpy(playerContainer.data(), playerContainerPacket.data(), playerNum * sizeof(Player));
     return playerContainer;
 }

@@ -1,4 +1,5 @@
 ﻿#include "Game.hpp"
+#include "GamePanel.hpp"
 
 Game::Game()
     : m_assetManager(std::make_shared<AssetManager>()),
@@ -36,10 +37,10 @@ Game::Game()
         std::string username = m_editBox->getText().toStdString();
         if (!username.empty()) {
             std::cout << "Username: " << username << std::endl;
-            if (!m_isPlaying)
-            {
 
-            }
+            GamePanel gamePanel{m_audioManager, m_networkManager, m_assetManager};
+            gamePanel.run();
+            
             // m_audioManager->playSound("button_click");
         }
         else {

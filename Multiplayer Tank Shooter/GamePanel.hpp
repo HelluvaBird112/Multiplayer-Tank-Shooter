@@ -2,8 +2,9 @@
 #include "AudioManager.hpp"
 #include "NetworkManager.hpp"
 #include "AssetManager.hpp"
-
+#include "DataSchema.hpp"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "Tank.hpp"
 
 class GamePanel
@@ -17,6 +18,8 @@ private:
 	std::shared_ptr<AudioManager> m_audioManager{ nullptr };
 	std::shared_ptr<NetworkManager> m_networkManager{ nullptr };
 	std::shared_ptr<AssetManager> m_assetManager{ nullptr };
-	std::vector<Tank> m_tanks;
-	std::uint64_t m_playerId;
+	std::vector<Tank> m_tanks{};
+	std::vector<Player> m_players{};
+	std::uint64_t m_playerId{};
+	bool m_isRunning{ true };
 };
