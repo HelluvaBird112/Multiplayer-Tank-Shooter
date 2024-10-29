@@ -39,6 +39,9 @@
     <ClCompile Include="DataSchema.hpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="DataSchema.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.hpp">
@@ -63,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enum.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="extra_sf_packet_op.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,5 @@
 
-
+#pragma once
 #include <SFML/Graphics.hpp>
 #include "Enum.hpp"
 class Bullet {

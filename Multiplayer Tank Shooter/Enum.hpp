@@ -1,6 +1,6 @@
 #pragma once
-
-enum Direction : char 
+#include <SFML/Network/Packet.hpp>
+enum Direction : sf::Uint8 
 {
     NORTH,
     NORTHEAST,
@@ -12,7 +12,7 @@ enum Direction : char
     NORTHWEST
 };
 
-enum RequestType : char
+enum RequestType : sf::Uint8
 {
     CONNECT,
     PLAYER_JOIN,

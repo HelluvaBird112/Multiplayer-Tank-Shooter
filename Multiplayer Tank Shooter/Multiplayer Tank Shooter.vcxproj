@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="DataSchema.cpp" />
     <ClCompile Include="DataSchema.hpp" />
     <ClCompile Include="GamePanel.cpp" />
     <ClCompile Include="GamePanel.hpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="AudioManager.hpp" />
     <ClInclude Include="Bullet.hpp" />
     <ClInclude Include="Enum.hpp" />
+    <ClInclude Include="extra_sf_packet_op.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="NetworkManager.hpp" />
     <ClInclude Include="Tank.hpp" />
