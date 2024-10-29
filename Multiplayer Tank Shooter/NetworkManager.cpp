@@ -25,10 +25,17 @@ void NetworkManager::receiveUpdates()
 {
 }
 
-std::pair<size_t, std::vector<Player>> NetworkManager::playerJoinHandle()
+std::pair<size_t, std::vector<Player>> NetworkManager::playerJoinHandle(const std::string& username)
 {
-    if (!NetworkManager::sendRequestToServer(PLAYER_JOIN))
+    constexpr RequestType reqType = PLAYER_JOIN;
+    std::vector<char> buffer(sizeof(RequestType) + sizeof(Player::name));
+    memcpy_s(buffer.data(), sizeof(RequestType), (void*)(&reqType), sizeof(RequestType));
+    memcpy_s(buffer.data() + sizeof(RequestType), sizeof(Player::name), (void*)(username.c_str()), sizeof(Player::name));
+
+
+    if (m_socket.send(buffer.data(), sizeof(buffer), m_serverAddress, m_port) != sf::Socket::Done)
     {
+        std::cerr << "Can't send join request to server !!\n";
         return {};
     }
 
@@ -42,16 +49,7 @@ std::pair<size_t, std::vector<Player>> NetworkManager::playerJoinHandle()
     return std::make_pair(playerNum, players);
 }
 
-bool NetworkManager::sendRequestToServer(RequestType requestType)
-{
-    std::cout << m_serverAddress << " " << m_port << "\n";
-    if (m_socket.send(reinterpret_cast<char*>(&requestType), sizeof(requestType), m_serverAddress, m_port) != sf::Socket::Done) 
-    {
-        std::cerr << "Failed to send request" << std::endl;
-        return false;
-    }
-    return true;
-}
+
 
 size_t NetworkManager::receivePlayerCount()
 {
@@ -65,10 +63,8 @@ size_t NetworkManager::receivePlayerCount()
         return 0;
     }
     std::cout << "Receive bytes: " << receivedBytes << " Need bytes: " << sizeof(playerNum) + 1 << "\n";
-    for (size_t i = 0; i < receivedBytes; ++i) {
-        std::cout << "Byte " << i << ": " << static_cast<int>(numPlayerPacket[i]) << "\n";
-    }
-    memcpy(&playerNum, numPlayerPacket.data() + 1, sizeof(playerNum));
+    
+    memcpy(&playerNum, numPlayerPacket.data()+1, sizeof(playerNum));
     std::cout << "playerNum : " << playerNum << "\n";
     return playerNum;
 }
@@ -86,5 +82,11 @@ std::vector<Player> NetworkManager::receivePlayers(size_t playerNum)
     }
 
     memcpy(playerContainer.data(), playerContainerPacket.data(), playerNum * sizeof(Player));
+    std::cout << "Receive bytes: " << receivedBytes << " Need Bytes: " << playerNum * sizeof(Player) << "\n";
+    for (const Player& player : playerContainer)
+    {
+        std::cout << " Player name: " << player.name << "\n";
+        std::cout << "Player " << " id: " << player.id  << " ip: " << player.ip << " port:" << player.port << "\n";
+    }
     return playerContainer;
 }

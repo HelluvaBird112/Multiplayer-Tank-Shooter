@@ -10,7 +10,7 @@
 class GamePanel
 {
 public:
-	GamePanel(std::shared_ptr<AudioManager> audioManager, std::shared_ptr<NetworkManager> networkManager, std::shared_ptr<AssetManager> assetManager);
+	GamePanel(std::shared_ptr<AudioManager> audioManager, std::shared_ptr<NetworkManager> networkManager, std::shared_ptr<AssetManager> assetManager, const std::string& username);
 	~GamePanel();
 	bool run();
 private:
@@ -21,5 +21,6 @@ private:
 	std::vector<Tank> m_tanks{};
 	std::vector<Player> m_players{};
 	std::uint64_t m_playerId{};
+	std::string m_username{};
 	bool m_isRunning{ true };
 };

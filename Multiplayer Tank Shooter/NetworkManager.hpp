@@ -16,8 +16,7 @@ public:
     void receiveUpdates();
 private:
     
-    std::pair<size_t, std::vector<Player>> playerJoinHandle();
-    bool sendRequestToServer(RequestType requestType);
+    std::pair<size_t, std::vector<Player>> playerJoinHandle(const std::string& username);
     size_t receivePlayerCount();
     std::vector<Player> receivePlayers(size_t playerNum);
     sf::UdpSocket m_socket{};
@@ -34,7 +33,11 @@ K NetworkManager::sendRequest(RequestType type, std::optional<T> data)
     case CONNECT:
         break;
     case PLAYER_JOIN:
-        return playerJoinHandle();
+        if (data.has_value())
+        {
+            return playerJoinHandle(data.value());
+        }
+        return K{};
     case PLAYER_LEFT:
         break;
     case PLAYER_MOVE:

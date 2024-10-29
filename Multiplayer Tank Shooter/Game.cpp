@@ -38,7 +38,7 @@ Game::Game()
         if (!username.empty()) {
             std::cout << "Username: " << username << std::endl;
 
-            GamePanel gamePanel{m_audioManager, m_networkManager, m_assetManager};
+            GamePanel gamePanel{m_audioManager, m_networkManager, m_assetManager, username};
             gamePanel.run();
             
             // m_audioManager->playSound("button_click");
