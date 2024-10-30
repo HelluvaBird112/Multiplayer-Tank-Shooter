@@ -19,10 +19,25 @@ GamePanel::~GamePanel()
 
 bool GamePanel::run()
 {
-	auto a = m_networkManager->sendRequest<std::string , std::pair<size_t, std::vector<Player>> > (PLAYER_JOIN, m_username);
-	auto numPlayer = a.first;
-	m_players = a.second;
-	std::cout << "NumPLayer: " << numPlayer << "\n";
-	
+	auto idAndPlayerContainer = m_networkManager->sendRequest<std::string , std::pair<size_t, std::vector<Player>> > (PLAYER_JOIN, m_username);
+	m_playerId = idAndPlayerContainer.first;
+	m_players = idAndPlayerContainer.second;
+	for (const Player& player : m_players)
+	{
+		m_tanks.emplace_back(player.pos.x, player.pos.y );
+	}
+	while (m_isRunning)
+	{
+		
+	}
+	return false;
+}
+
+bool GamePanel::render()
+{
+	for (Tank tank : m_tanks)
+	{
+		tank.draw(window);
+	}
 	return false;
 }

@@ -17,7 +17,7 @@ public:
 private:
     
     std::pair<size_t, std::vector<Player>> playerJoinHandle(const std::string& username);
-    size_t receivePlayerCount();
+    std::pair<sf::Uint64, sf::Uint64> receivePlayerCountAndId();
     std::vector<Player> receivePlayers(size_t playerNum) ;
     sf::UdpSocket m_socket{};
     sf::IpAddress m_serverAddress{"127.0.0.1"};

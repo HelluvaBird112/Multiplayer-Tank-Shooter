@@ -14,21 +14,18 @@ struct Position
 struct Player
 {
     sf::Int64 id{ 0 };
-    std::string ip{};
-    unsigned short port{};
     std::string name{};
     Position pos{};
     Direction direction{};
     float scale{};
     float traverseAngle{};
     sf::Int64 point{};
-    bool isActive{ false };
     Player() = default;
     Player(int64_t id) : id{ id }
     {}
 };
-inline sf::Packet& operator <<(sf::Packet& packet, const Player& player);
+sf::Packet& operator <<(sf::Packet& packet, const Player& player);
 
 
-inline sf::Packet& operator >>(sf::Packet& packet, Player& player);
+sf::Packet& operator >>(sf::Packet& packet, Player& player);
 

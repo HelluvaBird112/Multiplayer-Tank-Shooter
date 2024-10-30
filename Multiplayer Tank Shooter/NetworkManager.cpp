@@ -34,34 +34,37 @@ std::pair<size_t, std::vector<Player>> NetworkManager::playerJoinHandle(const st
         return {};
     }
 
-    size_t playerNum = receivePlayerCount();
-    if (playerNum == 0)
+    auto idAndNumPair = receivePlayerCountAndId();
+    if (idAndNumPair.first == 0)
     {
         return {};
     }
 
-    auto players = receivePlayers(playerNum);
-    return std::make_pair(playerNum, players);
+    auto players = receivePlayers(idAndNumPair.second);
+    return std::make_pair(idAndNumPair.first, players);
 }
 
-size_t NetworkManager::receivePlayerCount()
+std::pair<sf::Uint64, sf::Uint64> NetworkManager::receivePlayerCountAndId()
 {
     sf::Packet packet;
     if (m_socket.receive(packet, m_serverAddress, m_port) != sf::Socket::Done)
     {
         std::cerr << "Can't receive number of players !!\n";
-        return 0;
+        return {};
     }
 
-    size_t playerNum;
-    if (packet >> playerNum)
+    sf::Uint64 playerNum{0};
+    sf::Int8 reqType{};
+    sf::Uint64 playerId{};
+    std::cout << playerNum;
+    if (packet >> reqType >> playerNum >> playerId)
     {
         std::cout << "playerNum : " << playerNum << "\n";
-        return playerNum;
+        return std::make_pair(playerId,playerNum);
     }
 
     std::cerr << "Invalid packet received for player count.\n";
-    return 0;
+    return {};
 }
 
 std::vector<Player> NetworkManager::receivePlayers(size_t playerNum) 
@@ -76,12 +79,10 @@ std::vector<Player> NetworkManager::receivePlayers(size_t playerNum)
     std::vector<Player> players(playerNum);
     for (size_t i = 0; i < playerNum; ++i)
     {
-        Player player; 
-        if (packet >> player.id >> player.name >> player.ip >> player.port) 
+        if (packet >> players[i])
         {
-            players[i] = player; 
-            std::cout << "Player name: " << player.name << "\n";
-            std::cout << "Player id: " << player.id << " ip: " << player.ip << " port: " << player.port << "\n";
+            std::cout << "Player name: " << players[i].name << "\n";
+            std::cout << "Player id: " << players[i].id << "\n";
         }
         else
         {

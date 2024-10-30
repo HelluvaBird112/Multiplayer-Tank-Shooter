@@ -14,6 +14,7 @@ public:
 	~GamePanel();
 	bool run();
 private:
+	bool render();
 	sf::RenderWindow window{ sf::VideoMode(800,600), "Game" };
 	std::shared_ptr<AudioManager> m_audioManager{ nullptr };
 	std::shared_ptr<NetworkManager> m_networkManager{ nullptr };
