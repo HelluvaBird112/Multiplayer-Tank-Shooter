@@ -22,13 +22,34 @@ bool GamePanel::run()
 	auto idAndPlayerContainer = m_networkManager->sendRequest<std::string , std::pair<size_t, std::vector<Player>> > (PLAYER_JOIN, m_username);
 	m_playerId = idAndPlayerContainer.first;
 	m_players = idAndPlayerContainer.second;
+	m_assetManager->LoadTexture("TankTexture_1", "Assets/Images/PNG/Hulls_Color_A/Hull_01.png");
+
 	for (const Player& player : m_players)
 	{
-		m_tanks.emplace_back(player.pos.x, player.pos.y );
+		m_tanks.emplace_back(player, TANK_TYPE_1, m_assetManager->GetTexture("TankTexture_1"));
 	}
 	while (m_isRunning)
 	{
-		
+		while (window.isOpen())
+		{
+			sf::Event event;
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+					window.close();
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+				{
+					m_tanks[m_playerId].move(Direction::NORTH);
+				}
+			}
+
+			window.clear(sf::Color::Black);
+
+			render();
+			window.display();
+		}
+
+		return 0;
 	}
 	return false;
 }
@@ -39,5 +60,5 @@ bool GamePanel::render()
 	{
 		tank.draw(window);
 	}
-	return false;
+	return true;
 }

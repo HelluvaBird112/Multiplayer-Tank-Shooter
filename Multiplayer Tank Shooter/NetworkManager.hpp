@@ -17,8 +17,11 @@ public:
 private:
     
     std::pair<size_t, std::vector<Player>> playerJoinHandle(const std::string& username);
+    bool playerMoveHandle(const Direction direction);
+
     std::pair<sf::Uint64, sf::Uint64> receivePlayerCountAndId();
     std::vector<Player> receivePlayers(size_t playerNum) ;
+    void handlePlayerMoveResponse(sf::Packet& packet);
     sf::UdpSocket m_socket{};
     sf::IpAddress m_serverAddress{"127.0.0.1"};
     unsigned short m_port{ 54000 };
@@ -41,6 +44,10 @@ K NetworkManager::sendRequest(RequestType type, std::optional<T> data)
     case PLAYER_LEFT:
         break;
     case PLAYER_MOVE:
+        if (data.has_value())
+        {
+            return playerMoveHandle(data.value());
+        }
         break;
     case PLAYER_ATTACK:
         break;

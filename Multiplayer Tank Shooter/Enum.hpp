@@ -24,3 +24,9 @@ enum RequestType : sf::Uint8
 
 enum ResponseType : char
 {};
+
+enum TankType : int8_t
+{
+    TANK_TYPE_1,
+    TANK_TYPE_2
+};

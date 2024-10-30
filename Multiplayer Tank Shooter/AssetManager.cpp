@@ -1,7 +1,14 @@
 #include "AssetManager.hpp"
 #include <stdexcept>
 
-// Load a texture and cache it
+AssetManager::AssetManager()
+{
+}
+
+AssetManager::~AssetManager()
+{
+}
+
 void AssetManager::LoadTexture(const std::string& name, const std::string& filePath) {
     auto texture = std::make_unique<sf::Texture>();
     if (!texture->loadFromFile(filePath)) {
@@ -10,7 +17,6 @@ void AssetManager::LoadTexture(const std::string& name, const std::string& fileP
     m_textures[name] = std::move(texture);
 }
 
-// Get a texture
 sf::Texture& AssetManager::GetTexture(const std::string& name) {
     auto found = m_textures.find(name);
     if (found == m_textures.end()) {
@@ -19,7 +25,6 @@ sf::Texture& AssetManager::GetTexture(const std::string& name) {
     return *(found->second);
 }
 
-// Load a font and cache it
 void AssetManager::LoadFont(const std::string& name, const std::string& filePath) {
     auto font = std::make_unique<sf::Font>();
     if (!font->loadFromFile(filePath)) {
@@ -28,7 +33,6 @@ void AssetManager::LoadFont(const std::string& name, const std::string& filePath
     m_fonts[name] = std::move(font);
 }
 
-// Get a font
 sf::Font& AssetManager::GetFont(const std::string& name) {
     auto found = m_fonts.find(name);
     if (found == m_fonts.end()) {
@@ -37,7 +41,6 @@ sf::Font& AssetManager::GetFont(const std::string& name) {
     return *(found->second);
 }
 
-// Load a sound buffer and cache it
 void AssetManager::LoadSound(const std::string& name, const std::string& filePath) {
     auto soundBuffer = std::make_unique<sf::SoundBuffer>();
     if (!soundBuffer->loadFromFile(filePath)) {
@@ -46,7 +49,6 @@ void AssetManager::LoadSound(const std::string& name, const std::string& filePat
     m_sounds[name] = std::move(soundBuffer);
 }
 
-// Get a sound buffer
 sf::SoundBuffer& AssetManager::GetSound(const std::string& name) {
     auto found = m_sounds.find(name);
     if (found == m_sounds.end()) {
