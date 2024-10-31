@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include "NetworkManager.hpp"
 #include <vector>
+#include <iostream>
 
 
 
@@ -14,7 +15,7 @@ public:
     Tank(const Player& player, TankType tankType, const sf::Texture& texture);
     void update();
     void draw(sf::RenderTarget& target);
-    void move(Direction dir, std::shared_ptr<NetworkManager> networkManager);
+    void moveTo(Direction dir, std::shared_ptr<NetworkManager> networkManager);
     void fire();
 
 private:

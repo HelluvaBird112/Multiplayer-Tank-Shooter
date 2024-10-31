@@ -12,7 +12,7 @@ enum Direction : sf::Uint8
     NORTHWEST
 };
 
-enum RequestType : sf::Uint8
+enum  RequestType : sf::Uint8
 {
     CONNECT,
     PLAYER_JOIN,

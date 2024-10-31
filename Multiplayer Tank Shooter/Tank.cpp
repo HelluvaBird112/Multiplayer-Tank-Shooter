@@ -10,7 +10,7 @@ Tank::Tank(const Player& player, TankType tankType, const sf::Texture& texture) 
 	m_texture.setRepeated(false);
 	m_sprite.setTexture(m_texture);
 	m_sprite.setScale({ 0.2,0.2 });
-	m_sprite.setPosition({ player.pos.x,player.pos.y });
+	m_sprite.setPosition({ static_cast<float>(player.pos.x),static_cast<float>(player.pos.y)});
 }
 
 void Tank::update()
@@ -19,15 +19,17 @@ void Tank::update()
 
 void Tank::draw(sf::RenderTarget& target)
 {
-	m_sprite.setPosition({ m_player.pos.x,m_player.pos.y });
+	m_sprite.setPosition({ static_cast<float>(m_player.pos.x),static_cast<float>(m_player.pos.y) });
 	target.draw(m_sprite);
 }
 
 
 
-void Tank::move(Direction dir, std::shared_ptr<NetworkManager> networkManager)
+void Tank::moveTo(Direction dir, std::shared_ptr<NetworkManager> networkManager)
 {
-	auto err = networkManager->sendRequest<Direction, bool>(PLAYER_MOVE, dir);
+	std::cout << "MOVE to " << dir << "\n";
+	networkManager->playerMoveHandle(dir);
+	
 }
 
 void Tank::fire()
