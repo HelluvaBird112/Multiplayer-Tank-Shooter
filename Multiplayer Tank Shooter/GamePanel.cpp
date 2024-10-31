@@ -29,6 +29,7 @@ bool GamePanel::run()
 
 	for (const Player& player : m_players)
 	{
+		std::cout << player.name << "\n";
 		m_tanks.emplace_back(player, TANK_TYPE_1, m_assetManager->GetTexture("TankTexture_1"));
 	}
 
@@ -36,6 +37,7 @@ bool GamePanel::run()
 
 	while (window.isOpen())
 		{
+		   
 		//m_networkManager->receiveUpdates(m_players);
 			sf::Event event;
 			while (window.pollEvent(event))
@@ -86,7 +88,7 @@ bool GamePanel::run()
 void GamePanel::networkLoop()
 {
 	while (m_isRunning) {
-		m_networkManager->receiveUpdates(m_players);
+		m_networkManager->receiveUpdates(m_tanks);
 	}
 }
 

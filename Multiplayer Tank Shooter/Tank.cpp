@@ -30,6 +30,7 @@ void Tank::moveTo(Direction dir, std::shared_ptr<NetworkManager> networkManager)
 	std::cout << "MOVE to " << dir << "\n";
 	networkManager->playerMoveHandle(dir);
 	
+	
 }
 
 void Tank::fire()

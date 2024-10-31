@@ -21,7 +21,7 @@ void NetworkManager::connectToServer(const std::string& address, unsigned short 
     }
 }
 
-void NetworkManager::receiveUpdates(std::vector<Player>& players)
+void NetworkManager::receiveUpdates(std::vector<Tank>& tanks)
 {
     sf::Packet packet{};
 
@@ -46,7 +46,7 @@ void NetworkManager::receiveUpdates(std::vector<Player>& players)
             std::cout << "Player left.\n";
             break;
         case PLAYER_MOVE:
-            handlePlayerMoveResponse(packet, players);
+            handlePlayerMoveResponse(packet, tanks);
             break;
         case PLAYER_ATTACK:
             std::cout << "Player attack event received.\n";
@@ -87,8 +87,16 @@ bool NetworkManager::playerMoveHandle(const Direction direction)
 {
     sf::Packet packet{};
     RequestType reqType{ PLAYER_MOVE };
-    packet << reqType << direction;
-    return m_socket.send(packet, m_serverAddress, m_port) == sf::Socket::Done;
+    packet << reqType <<  direction;
+    auto status = m_sendSocket.send(packet, sf::IpAddress("127.0.0.1"), 54000);
+    std::cout << "In move hanlde: packet size: " << packet.getDataSize() << " bytes to address: " << "127.0.0.1" << " port: " << 54000 << "\n";
+    if (status != sf::Socket::Done)
+    {
+        std::cout << "status: " << status << "\n";
+        std::cerr << "Can send MOVE REQUEST To server\n";
+        return false;
+    }
+    return true;
 }
 
 std::pair<sf::Uint64, sf::Uint64> NetworkManager::receivePlayerCountAndId()
@@ -138,16 +146,17 @@ std::vector<Player> NetworkManager::receivePlayers()
     return players;
 }
 
-void NetworkManager::handlePlayerMoveResponse(sf::Packet& packet, std::vector<Player>& players)
+void NetworkManager::handlePlayerMoveResponse(sf::Packet& packet, std::vector<Tank>& tanks)
 {
     sf::Uint64 playerId{};
     Position playerPos;
     packet >> playerId >> playerPos.x >> playerPos.y;
     std::cout << "player id: " << playerId << " move to: x: " << playerPos.x << " y: " << playerPos.y << "\n";
-    std::cout << "players size: " << players.size() << "\n";
-    if (playerId < players.size())
+    std::cout << "players size: " << tanks.size() << "\n";
+    if (playerId < tanks.size())
     {
-        players[playerId].pos = { playerPos };
+        std::cout << playerId << " move to x:" << playerPos.x << " y: " << playerPos.y << "\n";
+        tanks[playerId].m_player.pos = { playerPos };
     }
     else
     {
