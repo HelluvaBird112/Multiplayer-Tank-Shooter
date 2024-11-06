@@ -2,17 +2,16 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Enum.hpp"
+#include "DataSchema.hpp"
 class Bullet {
 public:
-    Bullet(float startX, float startY, Direction dir);
-    void update();
-    void draw(sf::RenderTarget& target);
+    Bullet(BulletData& bulletData, std::shared_ptr<sf::Texture> texture);
+    void update(double deltaTime);
+    void draw(sf::RenderWindow& window);
     bool isOutside();
 
-private:
-    sf::Sprite sprite;
-    sf::Texture texture;
-    float speed;
-    Direction direction;
+    sf::Sprite m_sprite;
+    std::shared_ptr<sf::Texture> m_texture;
+    BulletData m_data;
 };
 

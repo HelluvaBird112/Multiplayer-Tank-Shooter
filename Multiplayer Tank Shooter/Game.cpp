@@ -30,7 +30,7 @@ Game::Game()
 
     m_assetManager->LoadSound("BtnClick", "Assets/Audio/mouse-click.mp3");
     m_joinGameBtn->onClick([&]() {
-        m_sound.setBuffer(m_assetManager->GetSound("BtnClick"));
+        m_sound.setBuffer(*(m_assetManager->GetSound("BtnClick")));
         m_sound.setPitch(3.0);
         m_sound.play();
         std::cout << "Clicked!!\n";

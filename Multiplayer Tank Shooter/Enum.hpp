@@ -19,7 +19,9 @@ enum  RequestType : sf::Uint8
     PLAYER_LEFT,
     PLAYER_MOVE,
     PLAYER_ATTACK,
-    PLAYER_COUNT
+    PLAYER_COUNT,
+    PLAYER_ROTATE_WEAPON,
+    PLAYER_SHOT
 };
 
 enum ResponseType : char
